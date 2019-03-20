@@ -1,25 +1,56 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Menu, } from 'semantic-ui-react';
+import { Menu, Dropdown } from 'semantic-ui-react';
 
-const Navbar = () => (
-  <Menu>
-    <Link to='/'>
-      <Menu.Item>
-        Home
-      </Menu.Item>
-    </Link>
-    <Link to='/departments'>
-      <Menu.Item>
-        Department Index
-      </Menu.Item>
-    </Link>
-    <Link to='/departments/new'>
-      <Menu.Item>
-        Add Department
-      </Menu.Item>
-    </Link>
-  </Menu>
-)
+class Navbar extends React.Component {
+  state = { departments: [], };
 
+  componentDidMount() {
+    axios.get('/api/departments')
+      .then( res => {
+        this.setState({ departments: res.data, });
+      });
+  };
+
+  render() {
+    const { departments } = this.state
+
+    return (
+      <Menu>
+        <Menu.Item
+          as={Link}
+          to='/'
+          name="Home"
+        />
+        <Menu.Item
+          as={Link} 
+          to='/departments'
+          name='Department Index'
+        />
+        <Dropdown item text='Departments'>
+          <Dropdown.Menu>
+            {
+              departments.map( department => (
+                <Dropdown.Item
+                  as={Link}
+                  to={`/departments/${department.id}`}
+                >
+                {department.name}
+                </Dropdown.Item>
+                )
+              )
+            }
+          </Dropdown.Menu>
+        </Dropdown>
+        <Menu.Item
+          as={Link} 
+          to='/departments/new'
+          name='Add Department'
+        />
+      </Menu> 
+    )
+  }
+}
+  
 export default Navbar;

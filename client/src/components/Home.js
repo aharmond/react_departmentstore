@@ -1,8 +1,14 @@
 import React from 'react';
-import { Header, } from 'semantic-ui-react';
+import { Link, } from 'react-router-dom';
+import { Header, Button, } from 'semantic-ui-react';
 
 const Home = () => (
-  <Header as="h1">Welcome to the Department Store</Header>
+  <div>
+    <Header as="h1">Welcome to the Department Store</Header>
+    <Button as={Link} to="/departments/" color="olive">
+      Browse Departments
+    </Button>
+  </div>
 )
 
 export default Home;

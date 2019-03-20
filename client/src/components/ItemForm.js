@@ -39,7 +39,12 @@ class ItemForm extends React.Component {
 
     return (
       <div>
-        <Header as="h1">Add Item</Header>
+        {
+          this.props.match.params.id ?
+          <Header as="h1">Edit Item</Header>
+        :
+          <Header as="h1">Add Item</Header>
+        }
         <Form widths="equal" onSubmit={this.handleSubmit}>
           <Form.Input
             label="Name"
