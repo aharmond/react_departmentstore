@@ -13,6 +13,14 @@ class DepartmentIndex extends React.Component {
       });
   };
 
+  deleteDepartment = (departmentId) => {
+    axios.delete(`/api/departments/${departmentId}`)
+      .then( res => {
+        const { departments } = this.state
+        this.setState({ departments: departments.filter( d => d.id !== departmentId), })
+      })
+  }
+
   render() {
     const { departments } = this.state
     return (
@@ -26,6 +34,9 @@ class DepartmentIndex extends React.Component {
                 <Header>{department.name}</Header>
                 <Button as={Link} to={`/departments/${department.id}`} color='brown'>
                   View Department
+                </Button>
+                <Button floated="right" color="red" onClick={() => this.deleteDepartment(department.id)}>
+                  Delete Department
                 </Button>
               </Segment>
             )
