@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, } from 'react-router-dom';
-import { Segment, Header, Button, } from 'semantic-ui-react';
+import { Segment, Header, Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Department extends React.Component {
-  state = { department: {}, items: [], }
+  state = { department: {}, items: [], toggleEdit: false }
 
   componentDidMount() {
     axios.get(`/api/departments/${this.props.match.params.id}`)
@@ -23,6 +23,20 @@ class Department extends React.Component {
         const { items, } = this.state;
         this.setState({ items: items.filter( i => i.id !== itemId), })
       })
+  }
+
+  handleChange = (e) => {
+    this.setState({ department: { name: e.target.value, } })
+  }
+
+  handleSubmit =(e) => {
+    e.preventDefault();
+    const { name } = this.state.department
+    axios.post(`api/departments/${this.state.department.id}`)
+      .then( res => {
+        this.setState({ department: { name: name }, })
+      })
+    this.toggleEdit()
   }
 
   renderItems = () => {
@@ -54,14 +68,33 @@ class Department extends React.Component {
     ))
   }
 
+  toggleEdit = () => this.setState({ toggleEdit : !this.state.toggleEdit })
+
   render() {
-    const { department } = this.state
+    const { department, toggleEdit } = this.state
     return (
       <div>
+        {
+          toggleEdit ? 
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Input
+              label="Name"
+              placeholder={department.name}
+              value={department.name}
+              onChange={this.handleChange}
+              required
+            />
+            <Form.Button>Submit</Form.Button>
+          </Form>
+        :
         <Header as='h1'>{ department.name }</Header>
+        }
         <br/>
         <Button as={Link} to={`/departments/${this.props.match.params.id}/new`} color='yellow'>
           Add Item
+        </Button>
+        <Button onClick={this.toggleEdit} color='green'>
+          Edit Department Name
         </Button>
         <br/>
         <br/>
