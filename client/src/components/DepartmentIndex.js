@@ -17,6 +17,9 @@ class DepartmentIndex extends React.Component {
     const { departments } = this.state
     return (
       <div>
+        <Button as={Link} to={`/departments/new`} color='olive'>
+          New Department
+        </Button>
         {
           departments.map( department => (
               <Segment key={department.id}>

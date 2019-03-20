@@ -31,10 +31,10 @@ class Department extends React.Component {
 
   handleSubmit =(e) => {
     e.preventDefault();
-    const { name } = this.state.department
-    axios.post(`api/departments/${this.state.department.id}`)
+    const { department } = this.state
+    axios.put(`/api/departments/${this.props.match.params.id}`, department)
       .then( res => {
-        this.setState({ department: { name: name }, })
+        this.setState({ department })
       })
     this.toggleEdit()
   }
