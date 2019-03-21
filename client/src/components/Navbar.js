@@ -13,12 +13,6 @@ class Navbar extends React.Component {
       });
   };
 
-  // toggleLoaded = () => this.setState({ loaded: true })
-
-  // pushDepartment = (id) => {
-  //   this.props.history.push(`/departments/${id}`)
-  // }
-
   render() {
     const { departments } = this.state
 
@@ -42,7 +36,6 @@ class Navbar extends React.Component {
                   key={ department.id }
                   as={ Link }
                   to={`/departments/${department.id}`}
-                  // onClick={() => this.props.history.push(`/departments/${department.id}`)}
                 >
                 {department.name}
                 </Dropdown.Item>
@@ -61,4 +54,4 @@ class Navbar extends React.Component {
   }
 }
   
-export default withRouter(Navbar);
+export default Navbar;

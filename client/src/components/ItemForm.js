@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Header, } from 'semantic-ui-react';
+import StyledHead from '../styles/StyledHead';
+import { Form, } from 'semantic-ui-react';
 import axios from 'axios';
 
 class ItemForm extends React.Component {
@@ -41,13 +42,12 @@ class ItemForm extends React.Component {
       <div>
         {
           this.props.match.params.id ?
-          <Header as="h1">Edit Item</Header>
+          <StyledHead size="medium">Edit Item</StyledHead>
         :
-          <Header as="h1">Add Item</Header>
+          <StyledHead size="medium">Add Item</StyledHead>
         }
         <Form widths="equal" onSubmit={this.handleSubmit}>
           <Form.Input
-            label="Name"
             placeholder="Name"
             name="name"
             value={name}
@@ -55,7 +55,6 @@ class ItemForm extends React.Component {
             required
           />
           <Form.Input
-            label="Description"
             placeholder="Description"
             name="description"
             value={description}
@@ -63,7 +62,6 @@ class ItemForm extends React.Component {
             required
           />
           <Form.Input
-            label="Price"
             placeholder="Price"
             name="price"
             value={price}
@@ -71,7 +69,7 @@ class ItemForm extends React.Component {
             type="number"
             required
           />
-          <Form.Button>Submit</Form.Button>
+          <Form.Button inverted color="orange">Submit</Form.Button>
         </Form>
       </div>
     )

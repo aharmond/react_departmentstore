@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Header, } from 'semantic-ui-react';
+import StyledHead from '../styles/StyledHead'
+import { Form, } from 'semantic-ui-react';
 import axios from 'axios';
 
 class DepartmentForm extends React.Component {
@@ -22,7 +23,7 @@ class DepartmentForm extends React.Component {
   render() {
     return (
       <div>
-        <Header>New Department</Header>
+        <StyledHead>New Department</StyledHead>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             placeholder="Department Name"
@@ -31,7 +32,7 @@ class DepartmentForm extends React.Component {
             onChange={this.handleChange}
             required
           />
-          <Form.Button>Submit</Form.Button>
+          <Form.Button inverted color="olive">Submit</Form.Button>
         </Form> 
       </div>
     )

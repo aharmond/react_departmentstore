@@ -57,12 +57,13 @@ class Department extends React.Component {
     const { items } = this.state;
     
     if (items.length <= 0)
-      return <h2>Out of Stock!</h2>
+      return <StyledHead size='medium'>Out of Stock!</StyledHead>
     return items.map( item => (
-      <Segment stacked key={item.id}>
+      <Segment huge inverted stacked key={item.id}>
         <StyledHead size='medium'>{item.name}</StyledHead>
         <Header as='h5'>{item.price}</Header>
-        <Button 
+        <Button
+          inverted
           floated='right' 
           color='red' 
           onClick={() => this.deleteItem(item.id)}
@@ -70,6 +71,7 @@ class Department extends React.Component {
           Delete
         </Button>
         <Button 
+          inverted
           floated='right' 
           color='green'
           as={Link}
@@ -92,22 +94,21 @@ class Department extends React.Component {
           toggleEdit ? 
           <Form onSubmit={this.handleSubmit}>
             <Form.Input
-              label="Name"
               placeholder={department.name}
               value={department.name}
               onChange={this.handleChange}
               required
             />
-            <Form.Button>Submit</Form.Button>
+            <Form.Button inverted color="green">Submit</Form.Button>
           </Form>
         :
         <StyledHead size='large'>{ department.name }</StyledHead>
         }
         <br/>
-        <Button as={Link} to={`/departments/${this.props.match.params.id}/new`} color='yellow'>
+        <Button inverted as={Link} to={`/departments/${this.props.match.params.id}/new`} color='yellow'>
           Add Item
         </Button>
-        <Button onClick={this.toggleEdit} color='green'>
+        <Button inverted onClick={this.toggleEdit} color='green'>
           Edit Department Name
         </Button>
         <br/>

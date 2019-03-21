@@ -1,12 +1,13 @@
 import React from 'react';
+import StyledHead from '../styles/StyledHead';
 import { Link, } from 'react-router-dom';
-import { Button, Header, } from 'semantic-ui-react';
+import { Button, } from 'semantic-ui-react';
 
 const NoMatch = () => (
   <div style={styles.container}>
-    <Header as='h1' style={styles.header}>Oops!</Header>
-    <Header as='h1' style={styles.header}>Nothing to see here.</Header>
-    <Header as='h3'>YOU FOUND A BROKEN LINK.</Header>
+    <StyledHead size="large">Oops!</StyledHead>
+    <StyledHead size="large">Nothing to see here.</StyledHead>
+    <StyledHead size="small">YOU FOUND A BROKEN LINK.</StyledHead>
     <Button as={Link} to='/' color='black'>Home</Button>
   </div>
 )
@@ -17,9 +18,6 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: '50px'
-  },
-  header: {
-    fontSize: '50px'
   },
 };
 

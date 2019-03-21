@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import StyledHead from '../styles/StyledHead.js'
 import { Link, } from 'react-router-dom';
-import { Segment, Header, Button } from 'semantic-ui-react';
+import { Segment, Button } from 'semantic-ui-react';
 
 class DepartmentIndex extends React.Component {
   state = { departments: [], };
@@ -25,17 +26,17 @@ class DepartmentIndex extends React.Component {
     const { departments } = this.state
     return (
       <div>
-        <Button as={Link} to={`/departments/new`} color='olive'>
+        <Button inverted as={Link} to={`/departments/new`} color='olive'>
           New Department
         </Button>
         {
           departments.map( department => (
-              <Segment key={department.id}>
-                <Header>{department.name}</Header>
-                <Button as={Link} to={`/departments/${department.id}`} color='brown'>
+              <Segment stacked inverted key={department.id}>
+                <StyledHead size="medium">{department.name}</StyledHead>
+                <Button inverted as={Link} to={`/departments/${department.id}`} color='brown'>
                   View Department
                 </Button>
-                <Button floated="right" color="red" onClick={() => this.deleteDepartment(department.id)}>
+                <Button inverted floated="right" color="red" onClick={() => this.deleteDepartment(department.id)}>
                   Delete Department
                 </Button>
               </Segment>
