@@ -6,6 +6,7 @@ import Home from './components/Home';
 import DepartmentIndex from './components/DepartmentIndex.js';
 import DepartmentForm from './components/DepartmentForm.js';
 import Department from './components/Department.js';
+import Item from './components/Item.js';
 import ItemForm from './components/ItemForm.js';
 import NoMatch from './components/NoMatch';
 import { Container, } from 'semantic-ui-react';
@@ -21,6 +22,7 @@ const App = () => (
         <Route exact path='/departments/new' component={DepartmentForm} />
         <Route exact path='/departments/:id/' component={Department} />
         <Route exact path='/departments/:department_id/new' component={ItemForm} />
+        <Route exact path='/departments/:department_id/items/:id' component={Item} />
         <Route exact path='/departments/:department_id/items/:id/edit' component={ItemForm} />
         <Route component={NoMatch} />
       </Switch>

@@ -8,23 +8,25 @@ class Department extends React.Component {
   state = { department: {}, items: [], toggleEdit: false }
 
   componentDidMount() {
-    axios.get(`/api/departments/${this.props.match.params.id}`)
+    const { id } = this.props.match.params
+    axios.get(`/api/departments/${id}`)
       .then( res => {
         this.setState({ department: res.data, });
       })
-    axios.get(`/api/departments/${this.props.match.params.id}/items`)
+    axios.get(`/api/departments/${id}/items`)
       .then( res => {
         this.setState({ items: res.data, });
       })
   }
 
   componentDidUpdate(prevProps) {
+    const { id } = this.props.match.params
     if (prevProps.location !== this.props.location) {
-      axios.get(`/api/departments/${this.props.match.params.id}`)
+      axios.get(`/api/departments/${id}`)
       .then( res => {
         this.setState({ department: res.data, });
       })
-      axios.get(`/api/departments/${this.props.match.params.id}/items`)
+      axios.get(`/api/departments/${id}/items`)
       .then( res => {
         this.setState({ items: res.data, });
       })
@@ -32,7 +34,8 @@ class Department extends React.Component {
   }
 
   deleteItem = (itemId) => {
-    axios.delete(`/api/departments/${this.props.match.params.id}/items/${itemId}`)
+    const { id } = this.props.match.params
+    axios.delete(`/api/departments/${id}/items/${itemId}`)
       .then( res=> {
         const { items, } = this.state;
         this.setState({ items: items.filter( i => i.id !== itemId), })
@@ -46,7 +49,8 @@ class Department extends React.Component {
   handleSubmit =(e) => {
     e.preventDefault();
     const { department } = this.state
-    axios.put(`/api/departments/${this.props.match.params.id}`, department)
+    const { id } = this.props.match.params
+    axios.put(`/api/departments/${id}`, department)
       .then( res => {
         this.setState({ department })
       })
@@ -62,7 +66,7 @@ class Department extends React.Component {
       <div style={{ padding: "25px", }}>
         <Segment inverted stacked key={item.id}>
           <StyledHead size='medium'>{item.name}</StyledHead>
-          <Header as='h5'>{item.price}</Header>
+          <Header as='h5'>${item.price}</Header>
           <Button
             inverted
             floated='right' 
@@ -76,9 +80,9 @@ class Department extends React.Component {
             floated='right' 
             color='green'
             as={Link}
-            to={`/departments/${this.props.match.params.id}/items/${item.id}/edit`}
+            to={`/departments/${this.props.match.params.id}/items/${item.id}`}
             >
-            Edit
+            View
           </Button>
           <p>{item.description}</p>
         </Segment>
@@ -90,24 +94,27 @@ class Department extends React.Component {
 
   render() {
     const { department, toggleEdit } = this.state
+    const { id } = this.props.match.params
+    const { name } = department
+
     return (
       <div>
         {
           toggleEdit ? 
           <Form onSubmit={this.handleSubmit}>
             <Form.Input
-              placeholder={department.name}
-              value={department.name}
+              placeholder={name}
+              value={name}
               onChange={this.handleChange}
               required
             />
             <Form.Button inverted color="green">Submit</Form.Button>
           </Form>
         :
-        <StyledHead size='large'>{ department.name }</StyledHead>
+        <StyledHead size='large'>{ name }</StyledHead>
         }
         <br/>
-        <Button inverted as={Link} to={`/departments/${this.props.match.params.id}/new`} color='yellow'>
+        <Button inverted as={Link} to={`/departments/${id}/new`} color='yellow'>
           Add Item
         </Button>
         <Button inverted onClick={this.toggleEdit} color='green'>

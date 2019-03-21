@@ -7,8 +7,9 @@ class ItemForm extends React.Component {
   state = { name: "", description: "", price: ""}
 
   componentDidMount() {
-    if (this.props.match.params.id)
-      axios.get(`/api/departments/${this.props.match.params.department_id}/items/${this.props.match.params.id}`)
+    const { department_id, id } = this.props.match.params
+    if (id)
+      axios.get(`/api/departments/${department_id}/items/${id}`)
         .then( res => {
           this.setState({ ...res.data })
       })
@@ -22,15 +23,16 @@ class ItemForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const item = { ...this.state, };
+    const { department_id, id } = this.props.match.params
     if (item.id) {
-      axios.put(`/api/departments/${this.props.match.params.department_id}/items/${this.props.match.params.id}`, item)
+      axios.put(`/api/departments/${department_id}/items/${id}`, item)
       .then( res => {
-        this.props.history.push(`/departments/${this.props.match.params.department_id}`)
+        this.props.history.push(`/departments/${department_id}/items/${id}`)
       })
     } else {
-      axios.post(`/api/departments/${this.props.match.params.department_id}/items`, item)
+      axios.post(`/api/departments/${department_id}/items`, item)
       .then( res => {
-        this.props.history.push(`/departments/${this.props.match.params.department_id}`);
+        this.props.history.push(`/departments/${department_id}`);
       })
     } 
   }
