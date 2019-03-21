@@ -1,4 +1,5 @@
 import React from 'react';
+import StyledHead from '../styles/StyledHead';
 import { Link, } from 'react-router-dom';
 import { Segment, Header, Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
@@ -15,6 +16,19 @@ class Department extends React.Component {
       .then( res => {
         this.setState({ items: res.data, });
       })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location !== this.props.location) {
+      axios.get(`/api/departments/${this.props.match.params.id}`)
+      .then( res => {
+        this.setState({ department: res.data, });
+      })
+      axios.get(`/api/departments/${this.props.match.params.id}/items`)
+      .then( res => {
+        this.setState({ items: res.data, });
+      })
+    }
   }
 
   deleteItem = (itemId) => {
@@ -46,7 +60,7 @@ class Department extends React.Component {
       return <h2>Out of Stock!</h2>
     return items.map( item => (
       <Segment stacked key={item.id}>
-        <Header as='h3'>{item.name}</Header>
+        <StyledHead size='medium'>{item.name}</StyledHead>
         <Header as='h5'>{item.price}</Header>
         <Button 
           floated='right' 
@@ -87,7 +101,7 @@ class Department extends React.Component {
             <Form.Button>Submit</Form.Button>
           </Form>
         :
-        <Header as='h1'>{ department.name }</Header>
+        <StyledHead size='large'>{ department.name }</StyledHead>
         }
         <br/>
         <Button as={Link} to={`/departments/${this.props.match.params.id}/new`} color='yellow'>

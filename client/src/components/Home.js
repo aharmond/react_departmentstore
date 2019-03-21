@@ -1,13 +1,17 @@
 import React from 'react';
+import StyledHead from '../styles/StyledHead';
 import { Link, } from 'react-router-dom';
-import { Header, Button, } from 'semantic-ui-react';
+import { Button, } from 'semantic-ui-react';
 
 const Home = () => (
   <div>
-    <Header as="h1">Welcome to the Department Store</Header>
-    <Button as={Link} to="/departments/" color="olive">
-      Browse Departments
-    </Button>
+    <StyledHead size="large">Welcome to the Department Store</StyledHead>
+    <Button 
+      as={Link} 
+      to="/departments/" 
+      color="teal"
+      content="Browse Departments"
+    />
   </div>
 )
 

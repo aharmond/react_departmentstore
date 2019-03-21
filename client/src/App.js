@@ -1,5 +1,6 @@
 import React, { Fragment, } from 'react';
-import { Route, Switch, } from 'react-router-dom';
+import { Route, Switch,} from 'react-router-dom';
+import Helmet from 'react-helmet';
 import Navbar from './components/Navbar.js';
 import Home from './components/Home';
 import DepartmentIndex from './components/DepartmentIndex.js';
@@ -11,6 +12,7 @@ import { Container, } from 'semantic-ui-react';
 
 const App = () => (
   <Fragment>
+    <Helmet bodyAttributes={{style: 'background-color : #2e333a'}} />
     <Container>
       <Navbar />
       <Switch>

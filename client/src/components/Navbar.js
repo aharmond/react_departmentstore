@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, } from 'react-router-dom';
 import { Menu, Dropdown } from 'semantic-ui-react';
 
 class Navbar extends React.Component {
@@ -13,11 +13,17 @@ class Navbar extends React.Component {
       });
   };
 
+  // toggleLoaded = () => this.setState({ loaded: true })
+
+  // pushDepartment = (id) => {
+  //   this.props.history.push(`/departments/${id}`)
+  // }
+
   render() {
     const { departments } = this.state
 
     return (
-      <Menu>
+      <Menu inverted>
         <Menu.Item
           as={Link}
           to='/'
@@ -33,8 +39,10 @@ class Navbar extends React.Component {
             {
               departments.map( department => (
                 <Dropdown.Item
-                  as={Link}
+                  key={ department.id }
+                  as={ Link }
                   to={`/departments/${department.id}`}
+                  // onClick={() => this.props.history.push(`/departments/${department.id}`)}
                 >
                 {department.name}
                 </Dropdown.Item>
@@ -53,4 +61,4 @@ class Navbar extends React.Component {
   }
 }
   
-export default Navbar;
+export default withRouter(Navbar);
