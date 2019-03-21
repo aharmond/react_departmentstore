@@ -3,7 +3,7 @@ class Api::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :update, :destroy]
 
   def index
-    render json: @department.items.all
+    render json: @department.items
   end
 
   def show

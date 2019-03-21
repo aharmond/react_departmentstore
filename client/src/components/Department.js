@@ -59,28 +59,30 @@ class Department extends React.Component {
     if (items.length <= 0)
       return <StyledHead size='medium'>Out of Stock!</StyledHead>
     return items.map( item => (
-      <Segment huge inverted stacked key={item.id}>
-        <StyledHead size='medium'>{item.name}</StyledHead>
-        <Header as='h5'>{item.price}</Header>
-        <Button
-          inverted
-          floated='right' 
-          color='red' 
-          onClick={() => this.deleteItem(item.id)}
-        >
-          Delete
-        </Button>
-        <Button 
-          inverted
-          floated='right' 
-          color='green'
-          as={Link}
-          to={`/departments/${this.props.match.params.id}/items/${item.id}/edit`}
-        >
-          Edit
-        </Button>
-        <p>{item.description}</p>
-      </Segment>
+      <div style={{ padding: "25px", }}>
+        <Segment inverted stacked key={item.id}>
+          <StyledHead size='medium'>{item.name}</StyledHead>
+          <Header as='h5'>{item.price}</Header>
+          <Button
+            inverted
+            floated='right' 
+            color='red' 
+            onClick={() => this.deleteItem(item.id)}
+            >
+            Delete
+          </Button>
+          <Button 
+            inverted
+            floated='right' 
+            color='green'
+            as={Link}
+            to={`/departments/${this.props.match.params.id}/items/${item.id}/edit`}
+            >
+            Edit
+          </Button>
+          <p>{item.description}</p>
+        </Segment>
+      </div>
     ))
   }
 
